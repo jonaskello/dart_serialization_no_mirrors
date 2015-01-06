@@ -7,7 +7,7 @@ library dart_serialization_no_mirrors.serialization_rules;
 /// handle these rules:
 /// 1. Dynamic code-gen with the transformer (then this file is not needed).
 /// 2. Static code-gen using the transformer coda as stand-alone (will generate something like this file).
-/// 3. Manually authoring the rules (as is don in this file).
+/// 3. Manually authoring the rules (as is done in this file).
 /// You can of course also write your own code-gen to generate something similar to this file.
 
 import 'package:serialization/serialization.dart';
