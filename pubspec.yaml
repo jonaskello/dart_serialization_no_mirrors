@@ -9,3 +9,7 @@ environment:
 dependencies:
   browser: any
   serialization: ">=0.10.3 <0.11.0"
+  http: any
+  args: '>=0.10.0 <0.13.0'
+  shelf: '>=0.5.5 <0.6.0'
+
