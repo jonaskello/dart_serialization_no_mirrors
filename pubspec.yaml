@@ -1,0 +1,11 @@
+name: 'dart_serialization_no_mirrors'
+version: 0.0.1
+description: >
+  An absolute bare-bones web app.
+#author: <your name> <email@example.com>
+#homepage: https://www.example.com
+environment:
+  sdk: '>=1.0.0 <2.0.0'
+dependencies:
+  browser: any
+  serialization: ">=0.10.3 <0.11.0"
