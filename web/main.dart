@@ -6,7 +6,6 @@ import 'dart:html';
 import 'package:dart_serialization_no_mirrors/serialization.dart';
 import 'package:dart_serialization_no_mirrors/person.dart';
 import 'package:dart_serialization_no_mirrors/address.dart';
-import 'package:http/browser_client.dart';
 
 void main() {
 
@@ -20,29 +19,26 @@ void send(MouseEvent event) {
   var person = new Person(firstName: "Dartisian", lastName: "Dartus", address: new Address(street: "Dartway", city: "Dartoplis"));
   var serializedPerson = serialize(person);
 
-  var client = new BrowserClient();
   var url = "http://localhost:8081";
-  client.post(url, body: serializedPerson)
-  .then((response) {
-    String message;
-    print("Response status: ${response.statusCode}");
-    print("Response body: ${response.body}");
-    if (response.statusCode == 200) {
-      try {
-        var deserializedPerson = deserialize(response.body);
-        message = 'Message serialized, sent, recieved, and deserialized. Trace network activity to see what was transfered.';
-      }
-      catch (ex) {
-        message = 'Deserialiaztion failed.';
-      }
-    }
-    else {
-      message = 'Send failed. Maybe wrong server URL or server is not running. StatusCode of respone was ${response.statusCode}.';
-    }
+  String message;
+  HttpRequest.request(url, method: "POST", sendData: serializedPerson)
+  .then((HttpRequest response) {
 
+    try {
+      var deserializedPerson = deserialize(response.response);
+      message = 'Message serialized, sent, recieved, and deserialized. Trace network activity to see what was transfered.';
+    }
+    catch (ex) {
+      message = 'Deserialiaztion failed.';
+    }
     querySelector('#output').text = message;
 
-  });
+  }).catchError((_) {
+
+    message = 'Send failed. Maybe wrong server URL or server is not running.';
+    querySelector('#output').text = message;
+
+  }) ;
 
 }
 
